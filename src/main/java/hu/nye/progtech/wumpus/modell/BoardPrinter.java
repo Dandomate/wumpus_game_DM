@@ -6,24 +6,20 @@ public class BoardPrinter {
         char[][] boardArray = board.getBoard();
         Hero hero = board.getHero();
 
-        // Oszlopkulcsok hozzáadása az első sorhoz
+        System.out.println("A hős nyilainak száma: "+hero.getHeroArrows());
+        System.out.println("A hős pozíciója: "+hero.getHeroDirection());
+        System.out.print("\n");
+
         System.out.print("  ");
-        for (char column = 'A'; column < 'A' + size; column++) {
+        for (char column = 'A'; column < 'A' + size; column++) {// Oszlopkulcsok hozzáadása az első sorhoz a,b,c,d
             System.out.print(column + " ");
         }
         System.out.println();
 
         for (int row = 0; row < size; row++) {
-            // Sorindex hozzáadása a bal oldalon
-            System.out.print((row + 1) + " ");
-
+            System.out.print((row + 1) + " ");// Sorindex hozzáadása a bal oldalon 1,2,3,4....
             for (int column = 0; column < size; column++) {
-                if (hero.getHeroRow() == row && hero.getHeroColumn() == column) {
-                    // Ha ez a pozíció a hősé, akkor a hőst írjuk ki
-                    System.out.print("H ");
-                } else {
                     System.out.print(boardArray[row][column] + " ");
-                }
             }
             System.out.println();
         }

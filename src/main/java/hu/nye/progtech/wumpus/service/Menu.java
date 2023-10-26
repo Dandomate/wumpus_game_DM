@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 
 import hu.nye.progtech.wumpus.modell.Game;
+import hu.nye.progtech.wumpus.modell.Hero;
 
 
 public class Menu {

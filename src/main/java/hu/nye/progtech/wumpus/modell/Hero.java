@@ -59,4 +59,5 @@ public class Hero {
     public String toString() {
         return "Hero [Row: " + row + ", Column: " + column + ", Direction: " + direction + "]";
     }
+
 }

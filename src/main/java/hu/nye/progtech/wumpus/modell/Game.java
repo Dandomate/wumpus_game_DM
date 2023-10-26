@@ -14,4 +14,5 @@ public static void playGame(String filePath) {
         System.out.println("\nHiba történt a pálya betöltésekor.");
         e.printStackTrace();
     }
+
 }}

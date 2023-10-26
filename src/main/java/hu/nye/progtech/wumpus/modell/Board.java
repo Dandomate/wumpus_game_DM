@@ -12,6 +12,7 @@ public class Board {
         this.hero = hero;
     }
 
+
     public int getSize() {
         return size;
     }
@@ -77,7 +78,7 @@ public class Board {
         return rowIndex >= 0 && rowIndex < size && columnIndex >= 0 && columnIndex < size;
     }
 
-    public void setCell(char column, int row, char value) {
+    public void setCell(char column, int row, char value) {  //beállítom az értéket az oszlopoknak és a soroknak -'A' a 0 miatt kel és a -1 is
         int columnIndex = column - 'A';
         int rowIndex = row-1;
 
