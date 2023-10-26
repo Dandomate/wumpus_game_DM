@@ -1,32 +1,29 @@
 package hu.nye.progtech.wumpus.service;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+
 import hu.nye.progtech.wumpus.modell.Game;
-import hu.nye.progtech.wumpus.modell.LoadBoardFromFile;
+
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
-    /*
-    private String playerName;
-    public void askForPlayerName(User user) {
-        playerName = user.askForUsername();
-    }
-*/
+
 
     public void displayMainMenu() {
-        System.out.println("Főmenü:");
-        System.out.println("1. Pályaszerkesztés");
-        System.out.println("2. Játék");
+        System.out.println("*-*-*-*-*-*Főmenü*-*-*-*-*-*");
+        System.out.println("1. Játék");
+        System.out.println("2. Pályaszerkesztés");
         System.out.println("3. Kilépés");
 
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                displayEditorMenu();
+                displayPlayMenu();
                 break;
             case 2:
-                displayPlayMenu();
+                displayEditorMenu();
                 break;
             case 3:
                 System.out.println("Kilépés a játékból");
@@ -38,19 +35,17 @@ public class Menu {
     }
 
     public void displayPlayMenu() {
-        System.out.println("Játék");
-        System.out.println("1. Pálya betöltése");
+        System.out.println("*-*-*-*-*-*Játék*-*-*-*-*-*");
+        System.out.println("1. Pálya betöltése fájlból");
         System.out.println("2. Pálya betöltése adatbázisból");
         System.out.println("3. Vissza a főmenübe");
 
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                // A pályafájl elérési útja
-                String filePath = "C:\\Users\\User\\git\\wumpus\\wumpus_game_DM\\src\\main\\resources\\asd.txt";
-                // Játék kezdése a beolvasott fájbol
-                Game.playGame(filePath);
+                Game.playGame("C:\\Users\\User\\git\\wumpus\\wumpus_game_DM\\src\\main\\resources\\asd.txt");
                 break;
+
             case 2:
                 break;
             case 3:
@@ -63,11 +58,12 @@ public class Menu {
     }
 
     public void displayEditorMenu() {
-        System.out.println("Pályaszerkesztés menü:");
+        System.out.println("*-*-*-*-*-*Pályaszerkesztő*-*-*-*-*-*");
         System.out.println("1. Pálya létrehozása");
-        System.out.println("2. Pálya betöltése");
-        System.out.println("3. Pálya mentése");
-        System.out.println("4. Vissza a főmenübe");
+        System.out.println("2. Pálya szerkesztése");
+        System.out.println("3. Pálya betöltése");
+        System.out.println("4. Pálya mentése");
+        System.out.println("5. Vissza a főmenübe");
 
         int choice = scanner.nextInt();
         switch (choice) {
@@ -78,6 +74,8 @@ public class Menu {
             case 3:
                 break;
             case 4:
+                break;
+            case 5:
                 displayMainMenu();
                 break;
             default:
@@ -85,10 +83,7 @@ public class Menu {
                 displayEditorMenu();
         }
     }
-    /*public String getPlayerName(){
-        return playerName;
-    }
-*/
+
 
 
 }

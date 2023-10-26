@@ -3,16 +3,13 @@ package hu.nye.progtech.wumpus.modell;
 public class Board {
     private int size; //méret
     private char[][]board; //mátrix
-    private int playerColumn; //Játékos hely
-    private int playerRow; //Játékos hely
-    private char playerDirection; //iranya
 
-    public Board(int size, char[][] board, int playerColumn, int playerRow, char playerDirection) {
+    private Hero hero;
+
+    public Board(int size, char[][] board,Hero hero) {
         this.size = size;
         this.board = board;
-        this.playerColumn = playerColumn;
-        this.playerRow = playerRow;
-        this.playerDirection = playerDirection;
+        this.hero = hero;
     }
 
     public int getSize() {
@@ -31,27 +28,62 @@ public class Board {
         this.board = board;
     }
 
-    public int getPlayerColumn() {
-        return playerColumn;
+    public Hero getHero() {
+        return hero;
     }
 
-    public void setPlayerColumn(int playerColumn) {
-        this.playerColumn = playerColumn;
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
-    public int getPlayerRow() {
-        return playerRow;
+    //proba
+/*
+    @Override
+    public String toString() {
+        StringBuilder boardString = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                    // Az első és utolsó sorokban, valamint az első és utolsó oszlopokban 'W' karakter
+                    boardString.append("W");
+                } else if (hero.getHeroRow() == i && hero.getHeroColumn() == j) {
+                    // Ha ez a pozíció a hősé, akkor a hőst írjuk ki
+                    boardString.append("H");
+                } else {
+                    boardString.append(board[i][j]);
+                }
+                boardString.append(" ");
+            }
+            boardString.append("\n");
+        }
+        return boardString.toString();
     }
 
-    public void setPlayerRow(int playerRow) {
-        this.playerRow = playerRow;
+
+ */
+    public char getCell(char columnKey, int rowIndex) {
+        // Az oszlopkulcsot és sorindexet átalakítjuk mátrix indexekké
+        int columnIndex = columnKey - 'A';
+        int matrixRowIndex = rowIndex - 1;
+
+        if (isValidCell(matrixRowIndex, columnIndex)) {
+            return board[matrixRowIndex][columnIndex];
+        } else {
+            return ' '; // Alapértelmezett érték, ha a cella érvénytelen
+        }
+    }
+    private boolean isValidCell(int rowIndex, int columnIndex) {
+        // Ellenőrizzük, hogy a megadott sorindex és oszlopkulcs érvényes cellára mutat-e
+        return rowIndex >= 0 && rowIndex < size && columnIndex >= 0 && columnIndex < size;
     }
 
-    public char getPlayerDirection() {
-        return playerDirection;
+    public void setCell(char column, int row, char value) {
+        int columnIndex = column - 'A';
+        int rowIndex = row-1;
+
+        if (isValidCell(columnIndex, rowIndex)) {
+            board[rowIndex][columnIndex] = value;
+        }
     }
 
-    public void setPlayerDirection(char playerDirection) {
-        this.playerDirection = playerDirection;
-    }
 }

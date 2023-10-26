@@ -1,16 +1,17 @@
 package hu.nye.progtech.wumpus.modell;
 
-import hu.nye.progtech.wumpus.modell.BoardPrinter;
-import hu.nye.progtech.wumpus.modell.LoadBoardFromFile;
-public class Game {
-    public static void playGame(String filePath) {
-        char[][] loadedBoard = LoadBoardFromFile.loadMap(filePath);
+import java.io.IOException;
 
-        if (loadedBoard != null) {
-            System.out.println("Pálya sikeresen betöltve:");
-            BoardPrinter.printBoard(loadedBoard);
-        } else {
-            System.out.println("Hiba történt a pálya betöltésekor.");
-        }
+public class Game {
+
+public static void playGame(String filePath) {
+    try {
+        Board board = LoadBoardFromFile.loadBoard(filePath);
+        BoardPrinter boardPrinter = new BoardPrinter();
+        boardPrinter.printBoard(board);
+        System.out.println("\nPálya sikeresen betöltve.");
+    } catch (IOException e) {
+        System.out.println("\nHiba történt a pálya betöltésekor.");
+        e.printStackTrace();
     }
-}
+}}
