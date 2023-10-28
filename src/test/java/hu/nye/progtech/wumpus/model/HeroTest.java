@@ -21,12 +21,13 @@ public class HeroTest {
     @Test
     public void testHeroArrows() {
         Hero hero = new Hero(3, 'B', Direction.NORTH, 1);
-        assertEquals(3, hero.getHeroArrows());
+        assertEquals(1, hero.getHeroArrows());
     }
     @Test
     public void testGetHeroDirection() {
         Hero hero = new Hero(3, 'B', Direction.NORTH, 1);
         assertEquals(Direction.NORTH, hero.getHeroDirection());
     }
+
 
 }
