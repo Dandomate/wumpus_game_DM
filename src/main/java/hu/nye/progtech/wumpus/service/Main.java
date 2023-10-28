@@ -12,12 +12,22 @@ public class Main {
         System.out.println("A megadott felhasználónév: " + username);
 
  */
-
         Scanner scanner = new Scanner(System.in);
-        User user = new User(scanner);
 
+        // A User osztály példányosítása és az InputScanner interfésszel való inicializálása.
+
+        InputScanner inputScanner = new InputScanner() {
+            @Override
+            public String nextLine() {
+                return scanner.nextLine();
+            }
+        };
+        User user = new User(inputScanner);
+        // A felhasználónevet bekérő metódus hívása.
         String username = user.askForUsername();
-        System.out.println("A beírt felhasználónév: " + username);
+        // A bekért felhasználónév kiíratása.
+        System.out.println("Bekért felhasználónév: " + username);
+
         Menu menu=new Menu(); //menü példányositása
         menu.displayMainMenu(); }
 

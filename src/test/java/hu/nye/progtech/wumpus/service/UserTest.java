@@ -1,24 +1,41 @@
 package hu.nye.progtech.wumpus.service;
 
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.mockito.Mockito;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class UserTest {
+
+    private User user;
+    private InputScanner inputScanner;
+
+    @BeforeEach
+    public void setUp() {
+        inputScanner = Mockito.mock(InputScanner.class);
+        user = new User(inputScanner);
+    }
+
     @Test
-    public void testAskForUsername() {
-        // Előkészítünk egy hamis bemeneti adatfolyamot
-        String testInput = "ValidUsername\n";
-        InputStream inputStream = new ByteArrayInputStream(testInput.getBytes());
-        Scanner scanner = new Scanner(inputStream);
+    public void testValidUsername() {
+        // Szimuláljuk, hogy a mock inputScanner a "JohnDoe" felhasználónevet adja vissza.
+        when(inputScanner.nextLine()).thenReturn("JohnDoe");
 
-        // Teszteljük az askForUsername metódust
-        User user = new User(scanner);
         String result = user.askForUsername();
+        assertEquals("JohnDoe", result);
+    }
 
-        // Ellenőrizzük az eredményt
-        assertEquals("ValidUsername", result);
+    @Test
+    public void testInvalidUsername() {
+        // Szimuláljuk, hogy a mock inputScanner először egy érvénytelen felhasználónevet ("A"), majd egy érvényest ("Valaki") ad vissza.
+        when(inputScanner.nextLine()).thenReturn("A", "Valaki");
+
+        // Teszteljük, hogy a felhasználó újra bekéri az érvénytelen felhasználónevet, majd helyes felhasználónevet ad vissza.
+        String result = user.askForUsername();
+        assertEquals("Valaki", result);
     }
 }

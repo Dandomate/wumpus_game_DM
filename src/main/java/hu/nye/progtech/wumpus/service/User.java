@@ -3,10 +3,10 @@ package hu.nye.progtech.wumpus.service;
 import java.util.Scanner;
 
 public class User {
-    private final Scanner scanner;
+    private final InputScanner inputScanner;
 
-    public User(Scanner scanner) {
-        this.scanner = scanner;
+    public User(InputScanner inputScanner) {
+        this.inputScanner = inputScanner;
     }
 
     public String askForUsername() {
@@ -24,7 +24,7 @@ public class User {
 
     private String getUsernameFromUser() {
         System.out.print("Kérem írjon be egy felhasználónevet (legfeljebb 20 karakter): ");
-        return scanner.nextLine();
+        return inputScanner.nextLine();
     }
 
     private boolean isValidUsername(String username) {
