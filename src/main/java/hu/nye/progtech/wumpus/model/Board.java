@@ -1,7 +1,7 @@
-package hu.nye.progtech.wumpus.modell;
+package hu.nye.progtech.wumpus.model;
 
 public class Board {
-    private int size; //méret
+    private  int size; //méret
     private char[][]board; //mátrix
 
     private Hero hero;
@@ -12,6 +12,8 @@ public class Board {
         this.hero = hero;
     }
 
+    public Board() {
+    }
 
     public int getSize() {
         return size;
@@ -86,5 +88,14 @@ public class Board {
             board[rowIndex][columnIndex] = value;
         }
     }
+/*
+    public void updateHeroDirection(Hero hero) {
+        int heroRow = hero.getHeroRow();
+        int heroColumn = hero.getHeroColumn() - 'A'; // Átalakítjuk a karaktert oszlopszámra
+        char newDirectionSymbol = hero.getHeroDirection().getSymbol();
+        setCell((char) ('A' + heroColumn), heroRow + 1, newDirectionSymbol); //
+    }
+*/
+
 
 }

@@ -1,23 +1,27 @@
-package hu.nye.progtech.wumpus.modell;
+package hu.nye.progtech.wumpus.model;
 
 
 public class Hero {
-    private int row;        // Sor pozíció
+    private  int row;        // Sor pozíció
     private char column;     // Oszlop pozíció //Át kell irni majd char ra csak proba miatt int
-    private char direction; // Nézési irány (pl. 'E' - észak, 'S' - dél, 'W' - nyugat, 'N' - kelet)
+    private Direction direction; // Nézési irány
     private int arrows;     // Nyílak száma
 
-    public Hero(int row, char column, char direction,int arrows) {
+    public Hero(int row, char column, Direction direction,int arrows) {
         this.row = row;
         this.column = column;
         this.direction = direction;
         this.arrows=arrows;
 
     }
-    public Hero(int row, char column, char direction) {
+    public Hero(int row, char column, Direction direction) {
         this.row = row;
         this.column = column;
         this.direction = direction;
+
+    }
+
+    public Hero() {
 
     }
 
@@ -37,13 +41,6 @@ public class Hero {
         this.column = column;
     }
 
-    public char getHeroDirection() {
-        return direction;
-    }
-
-    public void setHeroDirection(char direction) {
-        this.direction = direction;
-    }
 
     public int getHeroArrows() {
         return arrows;
@@ -53,11 +50,12 @@ public class Hero {
         this.arrows = arrows;
     }
 
+    public Direction getHeroDirection() {
+        return direction;
+    }
 
-    //proba
-    @Override
-    public String toString() {
-        return "Hero [Row: " + row + ", Column: " + column + ", Direction: " + direction + "]";
+    public void setHeroDirection(Direction direction) {
+        this.direction = direction;
     }
 
 }
