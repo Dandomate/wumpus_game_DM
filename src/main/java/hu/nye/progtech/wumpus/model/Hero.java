@@ -14,6 +14,7 @@ public class Hero {
         this.arrows=arrows;
 
     }
+   /*
     public Hero(int row, char column, Direction direction) {
         this.row = row;
         this.column = column;
@@ -21,10 +22,9 @@ public class Hero {
 
     }
 
-    public Hero() {
+    */
 
-    }
-
+/*
     public int getHeroRow() {
         return row;
     }
@@ -41,15 +41,20 @@ public class Hero {
         this.column = column;
     }
 
+ */
 
-    public int getHeroArrows() {
-        return arrows;
-    }
 
+
+
+    /*
     public void setHeroArrows(int arrows) {
         this.arrows = arrows;
     }
 
+     */
+    public int getHeroArrows() {
+        return arrows;
+    }
     public Direction getHeroDirection() {
         return direction;
     }

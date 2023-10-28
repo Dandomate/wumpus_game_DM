@@ -23,14 +23,14 @@ public class BoardPrinter {
         printHeroInfo(hero);
     }
 
-    private static void printHeroInfo(Hero hero) {
+    private static void printHeroInfo(Hero hero) { //a hős adatai
         System.out.print("\n");
         System.out.println("A hős nyilainak száma: " + hero.getHeroArrows());
         System.out.println("A hős pozíciója: " + hero.getHeroDirection());
         System.out.print("\n");
     }
 
-    private static void printColumnKeys(int size) {
+    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a bal oldalon 1,2,3,4....
         System.out.print("  ");
         for (char column = 'A'; column < 'A' + size; column++) {
             System.out.print(column + " ");

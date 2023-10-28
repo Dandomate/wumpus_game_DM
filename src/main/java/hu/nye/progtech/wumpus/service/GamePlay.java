@@ -41,7 +41,7 @@ public class GamePlay {
         }
     }
 
-    public static void showMainMenu() {
+    public static void showMainMenu() { //pálya megjelenítése
         Menu menu = new Menu();
         menu.displayMainMenu();
     }

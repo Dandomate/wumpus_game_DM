@@ -18,8 +18,8 @@ public class LoadBoardFromFile {
 
             validateLineLength(sizeAndHeroLine, 4);
 
-            int size = Integer.parseInt(sizeAndHeroLine[0]);
-            int heroRow = Integer.parseInt(sizeAndHeroLine[2]) - 1;
+            int size = Integer.parseInt(sizeAndHeroLine[0]); //parsolunk int-e
+            int heroRow = Integer.parseInt(sizeAndHeroLine[2]) - 1; // -1 kivonása a megfelelő oszlopszámhoz
             char heroColumn = (char) (sizeAndHeroLine[1].charAt(0) - 'A'); // 'A' kivonása a megfelelő oszlopszámhoz
             char heroDirectionSymbol = sizeAndHeroLine[3].charAt(0);
             Direction heroDirection = Direction.fromSymbol(heroDirectionSymbol);
@@ -27,17 +27,25 @@ public class LoadBoardFromFile {
             validateSize(size);
 
 
+
             char[][] board = loadBoardData(reader, size);
             int heroArrows = countHeroArrows(board);
             placeHero(board, heroRow, heroColumn);
 
+            int wumpusCount = countWumpus(board);
+            int goldCount = countGold(board);
+            int heroCount = countHero(board);
+
+            validateWumpusCount(size,wumpusCount); //validáljuk a wumpus számát
+            validateGoldCount(goldCount); //validáljuk az arany számát
+            validateHeroCount(heroCount); //validáljuk a hős számát
 
             Hero hero = new Hero(heroRow, heroColumn, heroDirection, heroArrows);
             Board gameBoard = new Board(size, board,hero);
 
-            //gameBoard.setCell('E', 3, 'Y'); //proba
-            //char cellValue = gameBoard.getCell('E', 3); //proba
-            //System.out.println("A (D 6) cellában található érték: " + cellValue+"\n");
+        //    gameBoard.setCell('E', 3, 'Y'); //proba
+        //    char cellValue = gameBoard.getCell('E', 3); //proba
+            //   System.out.println("A (D 6) cellában található érték: " + cellValue+"\n");
 
             return gameBoard;
 
@@ -67,7 +75,7 @@ public class LoadBoardFromFile {
 
 
     private static int countHeroArrows(char[][] board) {
-        int count = 0;
+        int count = 0; //számláló bevezetésével meghatározom a hős nyiainak számát
         for (char[] row : board) {
             for (char cellChar : row) {
                 CellType cellType = CellType.fromSymbol(cellChar);
@@ -79,21 +87,86 @@ public class LoadBoardFromFile {
         return count;
     }
 
-    private static void placeHero(char[][] board, int heroRow, char heroColumn) {
+    private static int countWumpus(char[][] board) {
+        int count = 0; //számláló bevezetésével meghatározom a wumpusok számát
+        for (char[] row : board) {
+            for (char cellChar : row) {
+                CellType cellType = CellType.fromSymbol(cellChar);
+                if (cellType == CellType.WUMPUS) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private static int countGold(char[][] board) {
+        int count = 0; //számláló bevezetésével meghatározom azz aranyak számát
+        for (char[] row : board) {
+            for (char cellChar : row) {
+                CellType cellType = CellType.fromSymbol(cellChar);
+                if (cellType == CellType.GOLD) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private static int countHero(char[][] board) {
+        int count = 0; //számláló bevezetésével meghatározom a hősök számát
+        for (char[] row : board) {
+            for (char cellChar : row) {
+                CellType cellType = CellType.fromSymbol(cellChar);
+                if (cellType == CellType.HERO) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private static void placeHero(char[][] board, int heroRow, char heroColumn) {  //a hősnek adok értéket a tipusok közül.
         board[heroRow][heroColumn] = CellType.HERO.getSymbol();
     }
 
-    private static void validateSize(int size) {
+    private static void validateSize(int size) { //Bemenet validálása a mérethez megfelelően.
         if (size < 6 || size > 20) {
             throw new IllegalArgumentException("A tábla mérete nem felel meg a követelményeknek. Ellenőrizze a bemeneti fájlt.");
         }
     }
 
-    private static void validateLineLength(String[] lineArray, int expectedLength) {
+    private static void validateLineLength(String[] lineArray, int expectedLength) { //méret validálás sorok...
         if (lineArray.length != expectedLength) {
             throw new IllegalArgumentException("Hibás méretinformáció a fájlban.");
         }
     }
+    private static void validateWumpusCount(int boardSize, int wumpusCount) {  //Wumpus számának validálása
+        if (boardSize <= 8) {
+            if (wumpusCount > 1) {
+                throw new IllegalArgumentException("Maximum 1 Wumpus lehet a pályán, ha a mérete kisebb vagy egyenlő 8-al.");
+            }
+        } else if (boardSize <= 14) {
+            if (wumpusCount > 2) {
+                throw new IllegalArgumentException("Maximum 2 Wumpus lehet a pályán, ha a mérete 9 és 14 között van.");
+            }
+        } else {
+            if (wumpusCount > 3) {
+                throw new IllegalArgumentException("Maximum 3 Wumpus lehet a pályán, ha a mérete nagyobb, mint 14.");
+            }
+        }
+    }
 
+    private static void validateGoldCount(int goldCount) { //arany számának validálása a pályan.
+        if (goldCount > 1) {
+            throw new IllegalArgumentException("Több mint egy arany található a beolvasott fájlban.");
+        }
+    }
+
+    private static void validateHeroCount(int heroCount) { //hős számának validálása a pályán
+        if (heroCount > 1) {
+            throw new IllegalArgumentException("A pálya több, mint 1 hőst tartalmaz a beolvasott fájlban.");
+        }
+    }
 
 }

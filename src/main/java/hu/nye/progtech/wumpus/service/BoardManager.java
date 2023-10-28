@@ -10,7 +10,7 @@ import java.io.IOException;
 public class BoardManager {
     private Board gameBoard;
 
-    public void loadBoard(String filePath) {
+    public void loadBoard(String filePath) { //betöltés fájlbol
         try {
             gameBoard = LoadBoardFromFile.loadBoard(filePath);
             System.out.println("Pálya betöltve.");
@@ -19,7 +19,7 @@ public class BoardManager {
         }
     }
 
-    public void printBoard() {
+    public void printBoard() {  //Kiiratás
         if (gameBoard != null) {
             printBoard(gameBoard);
         } else {
@@ -39,5 +39,7 @@ public class BoardManager {
         hero.setHeroDirection(newDirection);
     }
 
-
+    public Board getGameBoard() {
+        return gameBoard;
+    }
 }
