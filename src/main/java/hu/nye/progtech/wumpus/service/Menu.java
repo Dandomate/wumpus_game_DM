@@ -34,7 +34,6 @@ public class Menu {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                //LoadBoard.loadBoard("C:\\Users\\User\\git\\wumpus\\wumpus_game_DM\\src\\main\\resources\\asd.txt");
                 GamePlay gamePlay=new GamePlay();
                 gamePlay.startGame();
                 break;

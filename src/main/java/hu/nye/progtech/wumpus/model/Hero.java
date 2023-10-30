@@ -14,44 +14,7 @@ public class Hero {
         this.arrows=arrows;
 
     }
-   /*
-    public Hero(int row, char column, Direction direction) {
-        this.row = row;
-        this.column = column;
-        this.direction = direction;
 
-    }
-
-    */
-
-/*
-    public int getHeroRow() {
-        return row;
-    }
-
-    public void setHeroRow(int row) {
-        this.row = row;
-    }
-
-    public int getHeroColumn() {
-        return column;
-    }
-
-    public void setHeroColumn(char column) {
-        this.column = column;
-    }
-
- */
-
-
-
-
-    /*
-    public void setHeroArrows(int arrows) {
-        this.arrows = arrows;
-    }
-
-     */
     public int getHeroArrows() {
         return arrows;
     }

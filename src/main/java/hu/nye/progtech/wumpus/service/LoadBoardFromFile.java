@@ -43,10 +43,7 @@ public class LoadBoardFromFile {
             Hero hero = new Hero(heroRow, heroColumn, heroDirection, heroArrows);
             Board gameBoard = new Board(size, board,hero);
 
-        //    gameBoard.setCell('E', 3, 'Y'); //proba
-        //    char cellValue = gameBoard.getCell('E', 3); //proba
-            //   System.out.println("A (D 6) cellában található érték: " + cellValue+"\n");
-
+      
             return gameBoard;
 
         }
