@@ -2,22 +2,25 @@ package hu.nye.progtech.wumpus.model;
 
 
 public class Hero {
-    private  int row;        // Sor pozíció
-    private char column;     // Oszlop pozíció //Át kell irni majd char ra csak proba miatt int
+    private Position position;
     private Direction direction; // Nézési irány
     private int arrows;     // Nyílak száma
 
-    public Hero(int row, char column, Direction direction,int arrows) {
-        this.row = row;
-        this.column = column;
-        this.direction = direction;
-        this.arrows=arrows;
+    private boolean gold;
 
+    public Hero(int row, char column, Direction direction, int arrows) {
+        this.position = new Position(row, column);
+        this.direction = direction;
+        this.arrows = arrows;
+        gold=false;
     }
+
+
 
     public int getHeroArrows() {
         return arrows;
     }
+
     public Direction getHeroDirection() {
         return direction;
     }
@@ -26,4 +29,26 @@ public class Hero {
         this.direction = direction;
     }
 
+    public Position getHeroPosition() {
+        return position;
+    }
+
+    public void setHeroPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setArrows(int arrows) {
+        this.arrows = arrows;
+    }
+
+    public boolean isGold() {
+        return gold;
+    }
+
+    public void setGold() {
+        this.gold = true;
+    }
+    public boolean hasArrows() {
+        return arrows > 0;
+    }
 }

@@ -6,7 +6,9 @@ public enum CellType {
     WUMPUS('U'), // WUMPUSZ karakterrel jelölve
     HERO('H'), // HŐS karakterrel jelölve
     GOLD('G'), // ARANY karakterrel jelölve
+    START('X'), // Kezdőpont
     EMPTY('_'); // Új enum érték, amit hozzáadtunk
+
 
 
     private final char symbol; // A karakter, amely a pályán ezt a típust reprezentálja

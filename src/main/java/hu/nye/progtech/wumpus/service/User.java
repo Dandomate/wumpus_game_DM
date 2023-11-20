@@ -1,9 +1,10 @@
 package hu.nye.progtech.wumpus.service;
 
-import java.util.Scanner;
+
 
 public class User {
     private final InputScanner inputScanner;
+
 
     public User(InputScanner inputScanner) {
         this.inputScanner = inputScanner;
@@ -34,5 +35,6 @@ public class User {
     private void displayInvalidUsernameMessage() {
         System.out.println("A felhasználónév nem felel meg a kritériumnak");
     }
+
 }
 

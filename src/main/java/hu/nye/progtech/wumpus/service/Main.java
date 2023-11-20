@@ -22,7 +22,9 @@ public class Main {
         System.out.println("Bekért felhasználónév: " + username);
 
         Menu menu=new Menu(); //menü példányositása
-        menu.displayMainMenu(); }
+        menu.displayMainMenu();
+        }
+
 
 }
 

@@ -1,6 +1,9 @@
 package hu.nye.progtech.wumpus.service;
 
 import hu.nye.progtech.wumpus.controller.HeroController;
+import hu.nye.progtech.wumpus.model.CellType;
+import hu.nye.progtech.wumpus.model.Hero;
+import hu.nye.progtech.wumpus.model.Position;
 
 import java.util.Scanner;
 
@@ -8,9 +11,11 @@ public class GamePlay {
     public static void startGame() {
         HeroController heroController = new HeroController();
         BoardManager boardManager = new BoardManager();
-        String filePath = "C:\\Users\\User\\git\\wumpus\\wumpus_game_DM\\src\\main\\resources\\asd.txt";
+        String filePath = "C:\\Users\\User\\Desktop\\wumpus_game_DM\\src\\main\\resources\\asd.txt";
         boardManager.loadBoard(filePath);
 
+        heroController.setInitialPosition(boardManager.getHeroInitialPosition(),boardManager.getHeroInitialDirection());
+        heroController.setBoard(boardManager.getGameBoard());  // Hozzáadtuk ezt a sort
         // Tábla kiíratása
         boardManager.printBoard();
 
@@ -37,9 +42,15 @@ public class GamePlay {
 
             heroController.handleInput(input);//Bemenet
             boardManager.updateBoardHeroDirection(heroController.getHeroDirection());//Frissités
+            boardManager.updateBoardHeroPosition(heroController.getHeroPosition());//Frissités
+
+
+
+            // Új metódus hívása a játékobjektumok elhelyezésére
             boardManager.printBoard(); // Kiíratás
         }
     }
+
 
     public static void showMainMenu() { //pálya megjelenítése
         Menu menu = new Menu();

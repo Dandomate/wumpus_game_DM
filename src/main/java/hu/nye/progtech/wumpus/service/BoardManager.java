@@ -1,8 +1,6 @@
 package hu.nye.progtech.wumpus.service;
 
-import hu.nye.progtech.wumpus.model.Board;
-import hu.nye.progtech.wumpus.model.Direction;
-import hu.nye.progtech.wumpus.model.Hero;
+import hu.nye.progtech.wumpus.model.*;
 import hu.nye.progtech.wumpus.service.LoadBoardFromFile;
 
 import java.io.IOException;
@@ -39,7 +37,32 @@ public class BoardManager {
         hero.setHeroDirection(newDirection);
     }
 
+    public void updateBoardHeroPosition(Position newPosition) {
+        // Hős irányának beállítása az új irányra
+        Hero hero = gameBoard.getHero();
+        hero.setHeroPosition(newPosition);
+
+        // Frissítse a tábla celláját a hős új pozíciójával
+        char[][] board = gameBoard.getBoard();
+        int row = newPosition.getRow();
+        char col = newPosition.getColumn();
+
+        // Ellenőrizd, hogy az új pozíció a megfelelő tartományban van-e
+        if (row >= 0 && row < board.length && col >= 0 && col < board[row].length) {
+            board[row][col] = CellType.HERO.getSymbol();
+        }
+    }
+
+
     public Board getGameBoard() {
         return gameBoard;
+    }
+
+    public Position getHeroInitialPosition() {
+        return gameBoard.getHero().getHeroPosition();
+    }
+
+    public Direction getHeroInitialDirection() {
+        return gameBoard.getHero().getHeroDirection();
     }
 }

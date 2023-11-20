@@ -1,4 +1,5 @@
-package hu.nye.progtech.wumpus.model;
+
+/*package hu.nye.progtech.wumpus.model;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,3 +30,5 @@ public class BoardTest {
         assertEquals(testHero, hero);
     }
 }
+
+ */

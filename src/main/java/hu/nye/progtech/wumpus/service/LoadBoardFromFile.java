@@ -19,8 +19,8 @@ public class LoadBoardFromFile {
             validateLineLength(sizeAndHeroLine, 4);
 
             int size = Integer.parseInt(sizeAndHeroLine[0]); //parsolunk int-e
-            int heroRow = Integer.parseInt(sizeAndHeroLine[2]) - 1; // -1 kivonása a megfelelő oszlopszámhoz
-            char heroColumn = (char) (sizeAndHeroLine[1].charAt(0) - 'A'); // 'A' kivonása a megfelelő oszlopszámhoz
+            int heroRow = Integer.parseInt(sizeAndHeroLine[2])-1 ; // -1 kivonása a megfelelő oszlopszámhoz
+            char heroColumn = sizeAndHeroLine[1].charAt(0);
             char heroDirectionSymbol = sizeAndHeroLine[3].charAt(0);
             Direction heroDirection = Direction.fromSymbol(heroDirectionSymbol);
 
@@ -123,8 +123,25 @@ public class LoadBoardFromFile {
         return count;
     }
 
-    private static void placeHero(char[][] board, int heroRow, char heroColumn) {  //a hősnek adok értéket a tipusok közül.
-        board[heroRow][heroColumn] = CellType.HERO.getSymbol();
+    private static void placeHero(char[][] board, int heroRow, char heroColumn) {
+        if (isValidPosition(heroRow, heroColumn, board)) {
+            board[heroRow][heroColumn - 'A'] = CellType.START.getSymbol();
+        }
+    }
+
+    private static boolean isValidPosition(int row, char column, char[][] board) {
+        if (row < 0 || row >= board.length || !Character.isLetter(column)) {
+            System.out.println("Hibás pozíció: (" + row + ", " + column + ")");
+            return false;
+        }
+
+        column = Character.toUpperCase(column);
+        if (column < 'A' || column >= 'A' + board[0].length) {
+            System.out.println("Hős oszlopa a megfelelő tartományon kívül van.");
+            return false;
+        }
+
+        return true;
     }
 
     private static void validateSize(int size) { //Bemenet validálása a mérethez megfelelően.
@@ -165,5 +182,7 @@ public class LoadBoardFromFile {
             throw new IllegalArgumentException("A pálya több, mint 1 hőst tartalmaz a beolvasott fájlban.");
         }
     }
+
+
 
 }

@@ -2,6 +2,7 @@ package hu.nye.progtech.wumpus.service;
 
 import hu.nye.progtech.wumpus.model.Board;
 import hu.nye.progtech.wumpus.model.Hero;
+import hu.nye.progtech.wumpus.model.Position;
 
 public class BoardPrinter {
     public static void printLoadBoard(Board board) {
@@ -9,28 +10,47 @@ public class BoardPrinter {
         char[][] boardArray = board.getBoard();
         Hero hero = board.getHero();
 
-
-
         printColumnKeys(size);
 
         for (int row = 0; row < size; row++) {
-            printRowKeys(row);// Sorindex hozzáadása a bal oldalon 1,2,3,4....
+            printRowNumber(row + 1); // Sorindexet 1-től indítjuk
             for (int column = 0; column < size; column++) {
-                    System.out.print(boardArray[row][column] + " ");
+                char symbol;
+                if (hero.getHeroPosition().getRow() == row && hero.getHeroPosition().getColumn() == 'A' + column) {
+                    // Ha a mező a hőst reprezentálja, akkor "H"-t írunk ki
+                    symbol = 'H';
+                } else {
+                    // Egyébként a szokásos módon írjuk ki a mezőket
+                    symbol = boardArray[row][column];
+                }
+                System.out.print(symbol + " ");
             }
             System.out.println();
         }
         printHeroInfo(hero);
     }
+    private static void printRowNumber(int row) {
+        System.out.printf("%-2d", row);
+    }
 
     private static void printHeroInfo(Hero hero) { //a hős adatai
         System.out.print("\n");
         System.out.println("A hős nyilainak száma: " + hero.getHeroArrows());
-        System.out.println("A hős pozíciója: " + hero.getHeroDirection());
+        System.out.println("A hős iránya: " + hero.getHeroDirection());
+        //System.out.println("A hős poziciója: "+hero.getHeroPosition());
+        System.out.println("A hős pozíciója: " + formatHeroPosition(hero.getHeroPosition()));
+        System.out.println("Hős aranyai: "+hero.isGold());
         System.out.print("\n");
     }
 
-    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a bal oldalon 1,2,3,4....
+    private static String formatHeroPosition(Position position) {
+        // Ahol 1-től kezdődik a számozás és A-tól kezdődnek az oszlopok
+        int formattedRow = position.getRow() + 1;
+        char formattedColumn = position.getColumn();
+        return "(" + formattedRow + ", " + formattedColumn + ")";
+    }
+
+    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a a b c d
         System.out.print("  ");
         for (char column = 'A'; column < 'A' + size; column++) {
             System.out.print(column + " ");
@@ -38,9 +58,6 @@ public class BoardPrinter {
         System.out.println();
     }
 
-    private static void printRowKeys(int row) {
-        System.out.print((row + 1) + " ");
-    }
 
 
 }
