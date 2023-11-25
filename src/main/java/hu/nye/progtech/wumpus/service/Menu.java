@@ -1,13 +1,14 @@
 package hu.nye.progtech.wumpus.service;
 
-//import hu.nye.progtech.wumpus.controller.GameController;
-import hu.nye.progtech.wumpus.model.Hero;
 
 import java.util.Scanner;
 
 
+
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
+
+    GamePlay gamePlay = new GamePlay();
 
 
     public void displayMainMenu() {
@@ -17,11 +18,14 @@ public class Menu {
             case 1:
                 displayPlayMenu();
                 break;
-            case 2:
-                displayEditorMenu();
-                break;
             case 3:
                 System.out.println("Kilépés a játékból");
+                System.exit(0);
+                break;
+            case 2:
+                gamePlay.displayJsonScoresStart();
+                System.out.println("\n");
+                displayMainMenu();
                 break;
             default:
                 PrintNotValidMenuChoose();
@@ -34,12 +38,10 @@ public class Menu {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                GamePlay gamePlay=new GamePlay();
-                gamePlay.startGame();
+                gamePlay.startGamePlay();
                 break;
             case 2:
-                PrintDevelopment();
-                displayMainMenu();
+                gamePlay.startGamePlayDatabase(gamePlay.Username());
                 break;
             case 3:
                 displayMainMenu();
@@ -50,34 +52,7 @@ public class Menu {
         }
     }
 
-    public void displayEditorMenu() {
-        PrintDisplayEditorMenu();
-        int choice = scanner.nextInt();
-        switch (choice) {
-            case 1:
-                PrintDevelopment();
-                displayEditorMenu();
-                break;
-            case 2:
-                PrintDevelopment();
-                displayEditorMenu();
-                break;
-            case 3:
-                PrintDevelopment();
-                displayEditorMenu();
-                break;
-            case 4:
-                PrintDevelopment();
-                displayEditorMenu();
-                break;
-            case 5:
-                displayMainMenu();
-                break;
-            default:
-                PrintNotValidMenuChoose();
-                displayEditorMenu();
-        }
-    }
+
 
 public void PrintDevelopment(){
     System.out.println("A Következő művelet még fejlesztés alatt\n");
@@ -86,21 +61,7 @@ public void PrintDevelopment(){
 public void PrintNotValidMenuChoose(){
     System.out.println("ÉRVÉNYTELEN VÁLASZTÁS !!");
     }
-public void PrintDisplayEditorMenu(){
-    System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
-    System.out.println("*-*                                     *-*");
-    System.out.println("*-*     |Válasz a lehetőségek közül|    *-*");
-    System.out.println("*-*                                     *-*");
-    System.out.println("*-*          |PÁLYASZERKESZTŐ|          *-*");
-    System.out.println("*-*                                     *-*");
-    System.out.println("*-*        1. Pálya létrehozása         *-*");
-    System.out.println("*-*        2. Pálya szerkesztése        *-*");
-    System.out.println("*-*        3. Pálya betöltése           *-*");
-    System.out.println("*-*        4. Pálya mentése             *-*");
-    System.out.println("*-*        5. Vissza a főmenübe         *-*");
-    System.out.println("*-*                                     *-*");
-    System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
-}
+
     public void PrintDisplayPlayMenu(){
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         System.out.println("*-*                                     *-*");
@@ -123,7 +84,7 @@ public void PrintDisplayEditorMenu(){
         System.out.println("*-*              |FŐMENÜ|               *-*");
         System.out.println("*-*                                     *-*");
         System.out.println("*-*          1. Játék                   *-*");
-        System.out.println("*-*          2. Pályaszerkesztés        *-*");
+        System.out.println("*-*          2. Elért Pontok            *-*");
         System.out.println("*-*          3. Kilépés                 *-*");
         System.out.println("*-*                                     *-*");
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");

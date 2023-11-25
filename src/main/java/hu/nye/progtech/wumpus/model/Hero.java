@@ -15,6 +15,16 @@ public class Hero {
         gold=false;
     }
 
+    public Hero(int row, char column, Direction direction, int arrows, boolean gold) {
+        this.position = new Position(row, column);
+        this.direction = direction;
+        this.arrows = arrows;
+        this.gold = gold;
+    }
+
+    public String getGameState() {
+        return "Position: " + position + ", Direction: " + direction + ", Arrows: " + arrows + ", Gold: " + gold;
+    }
 
 
     public int getHeroArrows() {

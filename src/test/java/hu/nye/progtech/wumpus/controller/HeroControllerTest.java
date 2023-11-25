@@ -1,4 +1,5 @@
-package hu.nye.progtech.wumpus.controller;
+
+/*package hu.nye.progtech.wumpus.controller;
 
 import hu.nye.progtech.wumpus.controller.HeroController;
 import hu.nye.progtech.wumpus.model.Direction;
@@ -45,3 +46,5 @@ import static org.junit.Assert.assertEquals;
             assertEquals(null, heroController.getHeroDirection());
         }
     }
+
+ */

@@ -37,7 +37,6 @@ public class Position {
         column++;
     }
 
-    // Módosított toString metódus
     public String toString() {
         return "(" + row + ", " + column + ")";
     }

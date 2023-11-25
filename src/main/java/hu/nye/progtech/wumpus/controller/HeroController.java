@@ -1,11 +1,9 @@
 package hu.nye.progtech.wumpus.controller;
 
 import hu.nye.progtech.wumpus.model.*;
-import hu.nye.progtech.wumpus.service.Main;
+import hu.nye.progtech.wumpus.service.GamePlay;
+import hu.nye.progtech.wumpus.service.Menu;
 import hu.nye.progtech.wumpus.service.User;
-
-import java.util.EmptyStackException;
-import java.util.List;
 
 
 public class HeroController {
@@ -13,10 +11,18 @@ public class HeroController {
     private Direction heroDirection;
     private Position heroPosition;
     private Board board;
+    private  User user;
+    Menu menu= new Menu();
+
+
+
+
 
     private int stepCount; // Lépésszámláló
 
-    public HeroController() {
+    public HeroController(User user) {
+        this.user = user;
+
     }
     public void setInitialPosition(Position initialPosition, Direction initialDirection) {
         this.heroPosition = initialPosition;
@@ -86,9 +92,24 @@ public class HeroController {
         else if (cellType == CellType.START && board.getHero().isGold()==true){
             stepCount++;
             board.updateBoard(heroPosition);
+            user.incrementScore();
             System.out.println("Gratulálunk nyertél");
             System.out.println("Ennyi lépésből nyertél: "+getStepCount());//
-            System.exit(0);
+            System.out.println(user.getUserWithScore());
+
+            //JSON
+            Scoreboard scoreboard = new Scoreboard(user);
+            scoreboard.displayUserScore();
+            scoreboard.incrementScore();
+            scoreboard.saveScoresToFile("C:\\Users\\User\\Desktop\\wumpus_game_DM\\src\\main\\resources\\asd.json");
+
+            // Példa a pontszámok betöltésére
+            scoreboard.loadScoresFromFile("C:\\Users\\User\\Desktop\\wumpus_game_DM\\src\\main\\resources\\asd.json");
+
+            // Kiíratás a konzolra
+
+
+            menu.displayMainMenu();
         } else if (cellType == CellType.START) {
             stepCount++;
             board.updateBoard(heroPosition);
@@ -115,7 +136,7 @@ public class HeroController {
                 break;
             case WUMPUS:
                 System.out.println("GAME OVER - Megölt a Wumpus!");
-                System.exit(0);
+                menu.displayMainMenu();
                 break;
             case GOLD:
                 board.getHero().setGold();
@@ -153,14 +174,14 @@ public class HeroController {
                     System.out.println("Talált!");
                     return;
                 } else if (CellType.WALL.getSymbol() == cellValue) {
-                    System.out.println("A nyíl a falnak ütközött és eltűnt.");
+                    System.out.println("A nyíl a falnak ütközött.");
                     return;
                 }
 
                 arrowPosition.moveInDirection(heroDirection);
             }
         } else {
-            System.out.println("Nincsenek több nyilaid!");
+            System.out.println("Nincs több nyilad!");
         }
     }
     private boolean isValidPosition(int row, char column, int boardSize) {
@@ -180,6 +201,8 @@ public class HeroController {
             }
         }
     }
+
+
 }
 
 

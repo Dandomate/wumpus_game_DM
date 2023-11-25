@@ -37,9 +37,12 @@ public class BoardPrinter {
         System.out.print("\n");
         System.out.println("A hős nyilainak száma: " + hero.getHeroArrows());
         System.out.println("A hős iránya: " + hero.getHeroDirection());
-        //System.out.println("A hős poziciója: "+hero.getHeroPosition());
         System.out.println("A hős pozíciója: " + formatHeroPosition(hero.getHeroPosition()));
-        System.out.println("Hős aranyai: "+hero.isGold());
+        if (hero.isGold()==true)
+            System.out.println("Nálad van az arany");
+        else {
+            System.out.println("Nincs nálad arany");
+        }
         System.out.print("\n");
     }
 
@@ -50,7 +53,7 @@ public class BoardPrinter {
         return "(" + formattedRow + ", " + formattedColumn + ")";
     }
 
-    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a a b c d
+    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a b c d
         System.out.print("  ");
         for (char column = 'A'; column < 'A' + size; column++) {
             System.out.print(column + " ");

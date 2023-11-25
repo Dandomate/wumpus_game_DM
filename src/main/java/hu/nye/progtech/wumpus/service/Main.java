@@ -1,29 +1,12 @@
 package hu.nye.progtech.wumpus.service;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        GamePlay.startGame();
 
-        // A User osztály példányosítása és az InputScanner interfésszel való inicializálása.
+    }
 
-        InputScanner inputScanner = new InputScanner() {
-            @Override
-            public String nextLine() {
-                return scanner.nextLine();
-            }
-        };
-        User user = new User(inputScanner);
-        // A felhasználónevet bekérő metódus hívása.
-        String username = user.askForUsername();
-        // A bekért felhasználónév kiíratása.
-        System.out.println("Bekért felhasználónév: " + username);
-
-        Menu menu=new Menu(); //menü példányositása
-        menu.displayMainMenu();
-        }
 
 
 }
