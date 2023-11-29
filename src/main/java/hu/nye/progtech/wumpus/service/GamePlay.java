@@ -49,31 +49,19 @@ public class GamePlay {
         // Game Loop
         gameLoop(user.getUsername(), heroController, boardManager, scanner);
 
-
-
-
         // Scanner bezárása
         scanner.close();
     }
     public static void startGamePlayDatabase(String username) {
         HeroController heroController = new HeroController(user);
         BoardManager boardManager = new BoardManager();
-
         boardManager.loadBoardDatabase(username);
-
-
         heroController.setInitialPosition(boardManager.getHeroInitialPosition(),boardManager.getHeroInitialDirection());
         heroController.setBoard(boardManager.getGameBoard());
-
-
         boardManager.printBoard();
-
         Scanner scanner = new Scanner(System.in);
-
         gameLoop(username, heroController, boardManager, scanner);
-
-            scanner.close();
-
+        scanner.close();
     }
 
 

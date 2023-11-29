@@ -4,12 +4,15 @@ import hu.nye.progtech.wumpus.service.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 public class Scoreboard {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Scoreboard.class);
     private Map<String, Integer> scores;
     private User user;
 
@@ -34,6 +37,7 @@ public class Scoreboard {
     }
 
     public void saveScoresToFile(String filePath) {
+        LOGGER.info("save scores, filePath: {}",filePath);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -52,7 +56,7 @@ public class Scoreboard {
             // Elmentjük az eredményeket a JSON-be
             objectMapper.writeValue(new File(filePath), existingScores);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Nem sikerült betölteni, kivétel: ",e); //kivétel dobás
         }
     }
     public Map<String, Integer> loadScoresFromFile(String filePath) {
