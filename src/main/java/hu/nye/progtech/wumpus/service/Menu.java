@@ -1,16 +1,21 @@
 package hu.nye.progtech.wumpus.service;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 
 
 public class Menu {
-    private final Scanner scanner = new Scanner(System.in);
+    private final InputScanner scanner;
+    private final GamePlay gamePlay;
 
-    GamePlay gamePlay = new GamePlay();
 
-
+    public Menu(InputScanner scanner, GamePlay gamePlay) {
+        this.scanner = scanner;
+        this.gamePlay = gamePlay;
+    }
     public void displayMainMenu() {
         PrintMainPlayMenu();
         int choice = scanner.nextInt();
@@ -54,15 +59,11 @@ public class Menu {
 
 
 
-public void PrintDevelopment(){
-    System.out.println("A Következő művelet még fejlesztés alatt\n");
-}
-
 public void PrintNotValidMenuChoose(){
     System.out.println("ÉRVÉNYTELEN VÁLASZTÁS !!");
     }
 
-    public void PrintDisplayPlayMenu(){
+    public void PrintDisplayPlayMenu() {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         System.out.println("*-*                                     *-*");
         System.out.println("*-*     |Válasz a lehetőségek közül|    *-*");

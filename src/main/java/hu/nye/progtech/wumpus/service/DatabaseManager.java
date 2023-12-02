@@ -5,9 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class DatabaseManager {
-    private static final String DATABASE_URL = DatabaseConfig.DATABASE_URL;
+    private final String DATABASE_URL;
 
-    public static void saveGameState(String username, String gameState) {
+    public DatabaseManager() {
+        this.DATABASE_URL = DatabaseConfig.DATABASE_URL;
+    }
+
+
+    public  void saveGameState(String username, String gameState) {
         try (Connection connection = DriverManager.getConnection(DATABASE_URL)) {
             // Ellenőrizzük, hogy az adott felhasználónév már szerepel-e az adatbázisban
             boolean userExists = checkUserExists(connection, username);
@@ -24,7 +29,7 @@ public class DatabaseManager {
         }
     }
 
-    private static boolean checkUserExists(Connection connection, String username) throws SQLException {
+    private  boolean checkUserExists(Connection connection, String username) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
                 "SELECT COUNT(*) FROM game_states WHERE username = ?"
         )) {
@@ -36,7 +41,7 @@ public class DatabaseManager {
         }
     }
 
-    private static void updateGameState(Connection connection, String username, String gameState) throws SQLException {
+    private  void updateGameState(Connection connection, String username, String gameState) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
                 "UPDATE game_states SET game_state = ? WHERE username = ?"
         )) {
@@ -46,7 +51,7 @@ public class DatabaseManager {
         }
     }
 
-    private static void insertGameState(Connection connection, String username, String gameState) throws SQLException {
+    private  void insertGameState(Connection connection, String username, String gameState) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO game_states (username, game_state) VALUES (?, ?)"
         )) {

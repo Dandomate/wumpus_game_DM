@@ -11,48 +11,55 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BoardPrinterTest {
-    @Test
-    public void testPrintLoadBoard() {
-        // Előkészítjük a tesztadatokat
-        int size = 6;
-        char[][] boardArray = new char[][]{
-                {'W', 'W', 'W', 'W','W','W'},
-                {'W', 'H', '_', '_','_','W'},
-                {'W', 'U', '_', 'P','_','W'},
-                {'W', '_', 'G', '_','_','W'},
-                {'W', '_', '_', '_','_','W'},
-                {'W', 'W', 'W', 'W','W','W'},
-        };
-        Hero hero = new Hero(2, 'B', Direction.NORTH, 1);
-        Board board = new Board(size, boardArray, hero);
+        @Test
+        void testPrintLoadBoard() {
+            // Arrange
+            int size = 6;
+            char[][] boardArray = new char[][]{
+                    {'W', 'W', 'W', 'W', 'W', 'W'},
+                    {'W', '_', '_', '_', '_', 'W'},
+                    {'W', 'U', '_', 'P', '_', 'W'},
+                    {'W', '_', 'G', '_', '_', 'W'},
+                    {'W', '_', '_', '_', '_', 'W'},
+                    {'W', 'W', 'W', 'W', 'W', 'W'},
+            };
+            Hero hero = new Hero(1, 'B', Direction.NORTH, 3);
 
-        // Elvárt kimenet
-        String expectedOutput = "  A B C D E F \n" +
-                "1 W W W W W W \n" +
-                "2 W H _ _ _ W \n" +
-                "3 W U _ P _ W \n" +
-                "4 W _ G _ _ W \n" +
-                "5 W _ _ _ _ W \n" +
-                "6 W W W W W W \n" +
-                "\n" +
-                "A hős nyilainak száma: 1\n" +
-                "A hős pozíciója: NORTH\n\n";
+            Board board = new Board(size, boardArray, hero);
 
-        // Átirányítjuk a kimenetet
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+            // Elkapjuk a konzolra írt kimenetet
+            PrintStream originalOut = System.out;
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outputStream));
 
-        // Tesztelt kód meghívása
-        BoardPrinter.printLoadBoard(board);
+            // Act
+            BoardPrinter boardPrinter = new BoardPrinter();
+            boardPrinter.printLoadBoard(board);
 
-        // Tényleges kimenet
-        String actualOutput = outputStream.toString();
+            // Assert
+            String expectedOutput =
+                    "  A B C D E F \n" +
+                            "1 W W W W W W \n" +
+                            "2 W H _ _ _ W \n" +
+                            "3 W U _ P _ W \n" +
+                            "4 W _ G _ _ W \n" +
+                            "5 W _ _ _ _ W \n" +
+                            "6 W W W W W W \n" +
+                            "\n" +
+                            "A hős nyilainak száma: 3\n" +
+                            "A hős iránya: NORTH\n" +
+                            "A hős pozíciója: (2, B)\n" +
+                            "Nincs nálad arany\n" +
+                            "\n";
 
-        // Ellenőrizzük, hogy az elvárt kimenet egyezik-e a tényleges kimenettel
-        // Egyezés szóközök nélkül
-        String expectedOutputWithoutSpaces = expectedOutput.replaceAll("\\s", "");
-        String actualOutputWithoutSpaces = actualOutput.replaceAll("\\s", "");
+            String actualOutput = outputStream.toString();
 
-        assertEquals(expectedOutputWithoutSpaces, actualOutputWithoutSpaces);
-    }
-}
+            String expectedOutputWithoutSpaces = expectedOutput.replaceAll("\\s", "");
+            String actualOutputWithoutSpaces = actualOutput.replaceAll("\\s", "");
+
+            assertEquals(expectedOutputWithoutSpaces, actualOutputWithoutSpaces);
+
+            // Visszaállítjuk a konzolt az eredeti állapotába
+            System.setOut(originalOut);
+        }}
+

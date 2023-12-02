@@ -5,7 +5,7 @@ import hu.nye.progtech.wumpus.model.Hero;
 import hu.nye.progtech.wumpus.model.Position;
 
 public class BoardPrinter {
-    public static void printLoadBoard(Board board) {
+    public void printLoadBoard(Board board) {
         int size = board.getSize();
         char[][] boardArray = board.getBoard();
         Hero hero = board.getHero();
@@ -29,11 +29,11 @@ public class BoardPrinter {
         }
         printHeroInfo(hero);
     }
-    private static void printRowNumber(int row) {
+    private  void printRowNumber(int row) {
         System.out.printf("%-2d", row);
     }
 
-    private static void printHeroInfo(Hero hero) { //a hős adatai
+    private  void printHeroInfo(Hero hero) { //a hős adatai
         System.out.print("\n");
         System.out.println("A hős nyilainak száma: " + hero.getHeroArrows());
         System.out.println("A hős iránya: " + hero.getHeroDirection());
@@ -46,14 +46,14 @@ public class BoardPrinter {
         System.out.print("\n");
     }
 
-    private static String formatHeroPosition(Position position) {
+    private  String formatHeroPosition(Position position) {
         // Ahol 1-től kezdődik a számozás és A-tól kezdődnek az oszlopok
         int formattedRow = position.getRow() + 1;
         char formattedColumn = position.getColumn();
         return "(" + formattedRow + ", " + formattedColumn + ")";
     }
 
-    private static void printColumnKeys(int size) { // Oszlopindex hozzáadása a b c d
+    private  void printColumnKeys(int size) { // Oszlopindex hozzáadása a b c d
         System.out.print("  ");
         for (char column = 'A'; column < 'A' + size; column++) {
             System.out.print(column + " ");

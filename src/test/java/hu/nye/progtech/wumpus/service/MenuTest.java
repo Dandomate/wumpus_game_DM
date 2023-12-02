@@ -1,22 +1,43 @@
 package hu.nye.progtech.wumpus.service;
 
-import org.junit.jupiter.api.BeforeEach;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-class MenuTest {
-    @BeforeEach
-    public void setUp() {
-        // Itt állítjuk be a bemeneti adatokat, például "1\n2\n3\n"
-        String input = "1\n2\n3\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-    }
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+public class MenuTest {
 
     @Test
-    public void testDisplayMainMenu() {
-        Menu menu = new Menu();
-        // Most meghívjuk a tesztelendő metódust
+    public void testDisplayMainMenu1() {
+        // Arrange
+        InputScanner mockScanner = mock(InputScanner.class);
+        when(mockScanner.nextInt()).thenReturn(1); // Teszteset a válasz lehetőségére
+
+        GamePlay mockGamePlay = mock(GamePlay.class);
+
+        Menu menu = new Menu(mockScanner, mockGamePlay);
+
         menu.displayMainMenu();
     }
+
+
+
+
+    @Test
+    public void testDisplayPlayMenu() {
+        // Arrange
+        InputScanner mockScanner = mock(InputScanner.class);
+        when(mockScanner.nextInt()).thenReturn(1); // Teszteset a válasz lehetőségére
+
+        GamePlay mockGamePlay = mock(GamePlay.class);
+
+        Menu menu = new Menu(mockScanner, mockGamePlay);
+
+        menu.displayPlayMenu();
+    }
+
 }

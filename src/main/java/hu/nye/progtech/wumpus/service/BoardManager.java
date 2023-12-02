@@ -91,6 +91,10 @@ public class BoardManager {
         return gameBoard;
     }
 
+    public void setGameBoard(Board gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
     public Position getHeroInitialPosition() {
         return gameBoard.getHero().getHeroPosition();
     }

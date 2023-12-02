@@ -12,17 +12,16 @@ public class HeroController {
     private Position heroPosition;
     private Board board;
     private  User user;
-    Menu menu= new Menu();
 
-
+    private Menu menu;
 
 
 
     private int stepCount; // Lépésszámláló
 
-    public HeroController(User user) {
+    public HeroController(User user, Menu menu) {
         this.user = user;
-
+        this.menu = menu;
     }
     public void setInitialPosition(Position initialPosition, Direction initialDirection) {
         this.heroPosition = initialPosition;

@@ -3,13 +3,13 @@ package hu.nye.progtech.wumpus.service;
 
 
 public class User {
-    private final InputScanner inputScanner;
+    private final InputScanner2 inputScanner2;
 
     private int score;
     private String username;
 
-    public User(InputScanner inputScanner) {
-        this.inputScanner = inputScanner;
+    public User(InputScanner2 inputScanner2) {
+        this.inputScanner2 = inputScanner2;
         this.score = 0; // A pontszám inicializálása 0-ra
         this.username = ""; // Felhasználónév inicializálása üres stringre
     }
@@ -20,7 +20,7 @@ public class User {
         do {
             userInput = getUsernameFromUser();
             if (!isValidUsername(userInput)) {
-                displayInvalidUsernameMessage();
+                System.out.println("A felhasználónév nem felel meg a kritériumnak");
             }
         } while (!isValidUsername(userInput));
 
@@ -29,21 +29,22 @@ public class User {
     }
 
 
+    public InputScanner2 getInputScanner2() {
+        return inputScanner2;
+    }
+
     public String getUsername() {
         return username;
     }
     private String getUsernameFromUser() {
         System.out.print("Kérem írjon be egy felhasználónevet (legfeljebb 20 karakter): ");
-        return inputScanner.nextLine();
+        return inputScanner2.nextLine();
     }
 
     private boolean isValidUsername(String username) {
         return username.length() >= 2 && username.length() <= 20;
     }
 
-    private void displayInvalidUsernameMessage() {
-        System.out.println("A felhasználónév nem felel meg a kritériumnak");
-    }
 
     public int getScore() {
         return score;
@@ -54,7 +55,7 @@ public class User {
     }
 
     public String getUserWithScore() {
-        return ("Gratulálunk: "+getUsername() + ": " + getScore() + " pontod van jelenleg");
+        return ("Gratulálunk "+getUsername() + ": " + getScore() + " pontod van jelenleg");
     }
 
 

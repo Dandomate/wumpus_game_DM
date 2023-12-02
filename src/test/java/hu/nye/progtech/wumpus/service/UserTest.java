@@ -1,41 +1,76 @@
 package hu.nye.progtech.wumpus.service;
 
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 
 public class UserTest {
 
-    private User user;
-    private InputScanner inputScanner;
+    @Test
+    void testAskForUsernameValidInput() {
+        // Arrange
+        String testInput = "ValidUsername";
+        InputScanner2 testScanner = new TestInputScanner2(testInput);
+        User user = new User(testScanner);
 
-    @BeforeEach
-    public void setUp() {
-        inputScanner = Mockito.mock(InputScanner.class);
-        user = new User(inputScanner);
+        // Act
+        String result = user.askForUsername();
+
+        // Assert
+        assertEquals(testInput.trim(), result.trim());
+    }
+
+
+    @Test
+    void testIncrementScore() {
+        // Arrange
+        User user = new User(new TestInputScanner2("TestInput"));
+
+        // Act
+        user.incrementScore();
+        user.incrementScore();
+        user.incrementScore();
+
+        // Assert
+        assertEquals(3, user.getScore());
     }
 
     @Test
-    public void testValidUsername() {
-        // Szimuláljuk, hogy a mock inputScanner a "JohnDoe" felhasználónevet adja vissza.
-        when(inputScanner.nextLine()).thenReturn("JohnDoe");
+    void testUserWithScore() {
+        // Arrange
+        User user = new User(new TestInputScanner2("Test"));
 
-        String result = user.askForUsername();
-        assertEquals("JohnDoe", result);
+        // Act
+        user.incrementScore();
+        user.incrementScore();
+        String result = user.getUserWithScore();
+
+        // Assert
+        assertEquals("Gratulálunk "+user.getUsername()+": 2 pontod van jelenleg", result);
     }
 
-    @Test
-    public void testInvalidUsername() {
-        // Szimuláljuk, hogy a mock inputScanner először egy érvénytelen felhasználónevet ("A"), majd egy érvényest ("Valaki") ad vissza.
-        when(inputScanner.nextLine()).thenReturn("A", "Valaki");
+    private static class TestInputScanner2 implements InputScanner2 {
+        private final String[] inputs;
+        private int index;
 
-        // Teszteljük, hogy a felhasználó újra bekéri az érvénytelen felhasználónevet, majd helyes felhasználónevet ad vissza.
-        String result = user.askForUsername();
-        assertEquals("Valaki", result);
+        public TestInputScanner2(String... inputs) {
+            this.inputs = inputs;
+            this.index = 0;
+        }
+
+        @Override
+        public String nextLine() {
+            if (index < inputs.length) {
+                return inputs[index++];
+            }
+            return "";
+        }
     }
+
 }
