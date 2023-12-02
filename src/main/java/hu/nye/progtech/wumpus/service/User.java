@@ -24,10 +24,6 @@ public class User {
         return username;
     }
 
-    public InputScanner2 getInputScanner2() {
-        return inputScanner2;
-    }
-
     public String getUsername() {
         return username;
     }

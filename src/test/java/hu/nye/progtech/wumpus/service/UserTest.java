@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -13,64 +14,47 @@ import java.io.InputStream;
 public class UserTest {
 
     @Test
-    void testAskForUsernameValidInput() {
+    void testAskForUsername_ValidInput() {
         // Arrange
-        String testInput = "ValidUsername";
-        InputScanner2 testScanner = new TestInputScanner2(testInput);
-        User user = new User(testScanner);
+        InputScanner2 mockScanner = mock(InputScanner2.class);
+        when(mockScanner.nextLine()).thenReturn("ValidUsername");
+
+        User user = new User(mockScanner);
 
         // Act
         String result = user.askForUsername();
 
         // Assert
-        assertEquals(testInput.trim(), result.trim());
+        assertEquals("ValidUsername", result);
     }
-
 
     @Test
     void testIncrementScore() {
         // Arrange
-        User user = new User(new TestInputScanner2("TestInput"));
+        InputScanner2 mockScanner = mock(InputScanner2.class);
+        User user = new User(mockScanner);
 
         // Act
         user.incrementScore();
-        user.incrementScore();
-        user.incrementScore();
 
         // Assert
-        assertEquals(3, user.getScore());
+        assertEquals(1, user.getScore());
     }
 
     @Test
-    void testUserWithScore() {
+    void testGetUserWithScore() {
         // Arrange
-        User user = new User(new TestInputScanner2("Test"));
+        InputScanner2 mockScanner = mock(InputScanner2.class);
+        when(mockScanner.nextLine()).thenReturn("TesztUser"); // A mock értéket ad vissza a nextLine hívásra
+
+        User user = new User(mockScanner);
+        user.askForUsername(); // Felhasználónév bekérdezése a mock-ot használva
+        user.incrementScore(); // Pontszám növelése a teszteléshez
 
         // Act
-        user.incrementScore();
-        user.incrementScore();
         String result = user.getUserWithScore();
 
         // Assert
-        assertEquals("Gratulálunk "+user.getUsername()+": 2 pontod van jelenleg", result);
+        assertEquals("Gratulálunk TesztUser: 1 pontod van jelenleg", result);
     }
-
-    private static class TestInputScanner2 implements InputScanner2 {
-        private final String[] inputs;
-        private int index;
-
-        public TestInputScanner2(String... inputs) {
-            this.inputs = inputs;
-            this.index = 0;
-        }
-
-        @Override
-        public String nextLine() {
-            if (index < inputs.length) {
-                return inputs[index++];
-            }
-            return "";
-        }
-    }
-
 }

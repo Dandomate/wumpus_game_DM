@@ -1,7 +1,5 @@
 package hu.nye.progtech.wumpus.service;
 
-import java.util.Scanner;
-
 public class InitialGame {
 
     private final GamePlay gamePlay;
@@ -22,7 +20,5 @@ public class InitialGame {
         // Call the startGame method
         gamePlay.startGame();
     }
-
-
 
 }

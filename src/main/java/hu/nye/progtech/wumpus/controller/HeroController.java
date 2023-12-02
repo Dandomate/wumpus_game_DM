@@ -186,7 +186,7 @@ public class HeroController {
         return row >= 0 && row < boardSize && column >= 'A' && column < 'A' + boardSize;
     }
 
-    private void removeWumpus(Position arrowPosition) {
+    public void removeWumpus(Position arrowPosition) {
         int row = arrowPosition.getRow();
         char column = arrowPosition.getColumn();
 
@@ -200,4 +200,7 @@ public class HeroController {
         }
     }
 
+    public Board getBoard() {
+        return board;
+    }
 }
