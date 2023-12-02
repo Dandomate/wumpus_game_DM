@@ -1,7 +1,9 @@
 package hu.nye.progtech.wumpus.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import hu.nye.progtech.wumpus.controller.HeroController;
 import hu.nye.progtech.wumpus.model.Scoreboard;
@@ -101,20 +103,25 @@ public class GamePlay {
         menu.displayMainMenu();
     }
 
-    public  void displayJsonScores(String filePath, Scanner scanners) {
+    public void displayJsonScores(String filePath, Scanner scanners) {
         Scoreboard scoreboard = new Scoreboard(user);
 
         while (true) {
             final Map<String, Integer> pontok = scoreboard.loadScoresFromFile(filePath);
+
+            // Rendezzük a pontokat csökkenő sorrendbe
+            final List<Map.Entry<String, Integer>> sortedScores = pontok.entrySet().stream()
+                    .sorted((entry1, entry2) -> Integer.compare(entry2.getValue(), entry1.getValue()))
+                    .collect(Collectors.toList());
 
             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
             System.out.println("*-*                                     *-*");
             System.out.println("*-*         |JÁTÉKOSOK PONTJAI|         *-*");
             System.out.println("*-*                                     *-*");
 
-            // Kiírjuk a JSON tartalmát a konzolra
-            pontok.forEach((felhasznalonev, pont) -> {
-                String formattedLine = String.format("*-*  %14s : pont %-12d *-*", felhasznalonev, pont);
+            // Kiírjuk a rendezett pontokat a konzolra
+            sortedScores.forEach(entry -> {
+                String formattedLine = String.format("*-*  %14s : pont %-12d *-*", entry.getKey(), entry.getValue());
                 System.out.println(formattedLine);
             });
 
