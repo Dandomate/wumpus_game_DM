@@ -1,10 +1,12 @@
 package hu.nye.progtech.wumpus.controller;
 
-import hu.nye.progtech.wumpus.model.*;
-import hu.nye.progtech.wumpus.service.GamePlay;
+import hu.nye.progtech.wumpus.model.Board;
+import hu.nye.progtech.wumpus.model.CellType;
+import hu.nye.progtech.wumpus.model.Direction;
+import hu.nye.progtech.wumpus.model.Position;
+import hu.nye.progtech.wumpus.model.Scoreboard;
 import hu.nye.progtech.wumpus.service.Menu;
 import hu.nye.progtech.wumpus.service.User;
-
 
 public class HeroController {
 
@@ -12,10 +14,7 @@ public class HeroController {
     private Position heroPosition;
     private Board board;
     private  User user;
-
     private Menu menu;
-
-
 
     private int stepCount; // Lépésszámláló
 
@@ -23,6 +22,7 @@ public class HeroController {
         this.user = user;
         this.menu = menu;
     }
+
     public void setInitialPosition(Position initialPosition, Direction initialDirection) {
         this.heroPosition = initialPosition;
         this.heroDirection = initialDirection;
@@ -82,18 +82,17 @@ public class HeroController {
             stepCount++;
             board.updateBoard(heroPosition);
 
-        }else if (cellType == CellType.GOLD){
+        } else if (cellType == CellType.GOLD) {
             stepCount++;
             board.updateBoard(heroPosition);
-           // board.setCellType(heroPosition,CellType.EMPTY);
+            // board.setCellType(heroPosition,CellType.EMPTY);
             System.out.println(cellType.getSymbol());
-        }
-        else if (cellType == CellType.START && board.getHero().isGold()==true){
+        } else if (cellType == CellType.START && board.getHero().isGold() == true) {
             stepCount++;
             board.updateBoard(heroPosition);
             user.incrementScore();
             System.out.println("Gratulálunk nyertél");
-            System.out.println("Ennyi lépésből nyertél: "+getStepCount());//
+            System.out.println("Ennyi lépésből nyertél: " + getStepCount());
             System.out.println(user.getUserWithScore());
 
             //JSON
@@ -147,7 +146,6 @@ public class HeroController {
         }
     }
 
-
     public Direction getHeroDirection() {
         return heroDirection;
     }
@@ -183,6 +181,7 @@ public class HeroController {
             System.out.println("Nincs több nyilad!");
         }
     }
+
     private boolean isValidPosition(int row, char column, int boardSize) {
         return row >= 0 && row < boardSize && column >= 'A' && column < 'A' + boardSize;
     }
@@ -201,7 +200,4 @@ public class HeroController {
         }
     }
 
-
 }
-
-

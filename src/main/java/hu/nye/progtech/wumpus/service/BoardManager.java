@@ -1,11 +1,15 @@
 package hu.nye.progtech.wumpus.service;
 
-import hu.nye.progtech.wumpus.model.*;
-
-
 import java.io.IOException;
 
+import hu.nye.progtech.wumpus.model.Board;
+import hu.nye.progtech.wumpus.model.CellType;
+import hu.nye.progtech.wumpus.model.Direction;
+import hu.nye.progtech.wumpus.model.Hero;
+import hu.nye.progtech.wumpus.model.Position;
+
 public class BoardManager {
+
     private Board gameBoard;
 
     public void loadBoard(String filePath) { //betöltés fájlbol
@@ -16,6 +20,7 @@ public class BoardManager {
             System.out.println("Hiba történt a pálya betöltésekor: nem megfelelő elérés.");
         }
     }
+
     public void loadBoardDatabase(String username) { //betöltés fájlbol
         gameBoard = LoadBoardFromDatabase.loadBoardDatabase(username);
         System.out.println("Pálya betöltve.");
@@ -56,6 +61,7 @@ public class BoardManager {
             board[row][col] = CellType.HERO.getSymbol();
         }
     }
+
     public String getGameState() {
         if (gameBoard == null) {
             return "Game state not available.";
@@ -87,6 +93,7 @@ public class BoardManager {
 
         return gameState.toString();
     }
+
     public Board getGameBoard() {
         return gameBoard;
     }

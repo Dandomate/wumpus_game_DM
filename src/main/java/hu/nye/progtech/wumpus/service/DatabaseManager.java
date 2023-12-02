@@ -1,19 +1,21 @@
 package hu.nye.progtech.wumpus.service;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 public class DatabaseManager {
-    private final String DATABASE_URL;
+
+    private final String databaseUrl;
 
     public DatabaseManager() {
-        this.DATABASE_URL = DatabaseConfig.DATABASE_URL;
+        this.databaseUrl = DatabaseConfig.databaseUrl;
     }
 
-
     public  void saveGameState(String username, String gameState) {
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL)) {
+        try (Connection connection = DriverManager.getConnection(databaseUrl)) {
             // Ellenőrizzük, hogy az adott felhasználónév már szerepel-e az adatbázisban
             boolean userExists = checkUserExists(connection, username);
 
@@ -60,5 +62,4 @@ public class DatabaseManager {
             statement.executeUpdate();
         }
     }
-
 }

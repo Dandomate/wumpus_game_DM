@@ -1,10 +1,7 @@
 package hu.nye.progtech.wumpus.service;
 
-
-
 public class User {
     private final InputScanner2 inputScanner2;
-
     private int score;
     private String username;
 
@@ -13,7 +10,6 @@ public class User {
         this.score = 0; // A pontszám inicializálása 0-ra
         this.username = ""; // Felhasználónév inicializálása üres stringre
     }
-
 
     public String askForUsername() {
         String userInput;
@@ -28,7 +24,6 @@ public class User {
         return username;
     }
 
-
     public InputScanner2 getInputScanner2() {
         return inputScanner2;
     }
@@ -36,6 +31,7 @@ public class User {
     public String getUsername() {
         return username;
     }
+
     private String getUsernameFromUser() {
         System.out.print("Kérem írjon be egy felhasználónevet (legfeljebb 20 karakter): ");
         return inputScanner2.nextLine();
@@ -45,19 +41,17 @@ public class User {
         return username.length() >= 2 && username.length() <= 20;
     }
 
-
     public int getScore() {
         return score;
     }
 
     public void incrementScore() {
-        score = score+1;
+        score = score + 1;
     }
 
     public String getUserWithScore() {
-        return ("Gratulálunk "+getUsername() + ": " + getScore() + " pontod van jelenleg");
+        return ("Gratulálunk " + getUsername() + ": " + getScore() + " pontod van jelenleg");
     }
-
 
 }
 

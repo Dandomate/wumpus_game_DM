@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DatabaseConfig {
 
 
-    public static String DATABASE_URL = "jdbc:mysql://localhost:3306/wumpus_game?user=root&password=";
-    Connection connection = DriverManager.getConnection(DATABASE_URL);
+    public static String databaseUrl = "jdbc:mysql://localhost:3306/wumpus_game?user=root&password=";
+    Connection connection = DriverManager.getConnection(databaseUrl);
 
     public DatabaseConfig() throws SQLException {
     }

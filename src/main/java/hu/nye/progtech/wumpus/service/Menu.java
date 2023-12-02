@@ -1,23 +1,17 @@
 package hu.nye.progtech.wumpus.service;
 
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
-
-
-
 public class Menu {
+
     private final InputScanner scanner;
     private final GamePlay gamePlay;
-
 
     public Menu(InputScanner scanner, GamePlay gamePlay) {
         this.scanner = scanner;
         this.gamePlay = gamePlay;
     }
+
     public void displayMainMenu() {
-        PrintMainPlayMenu();
+        printMainPlayMenu();
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
@@ -33,37 +27,35 @@ public class Menu {
                 displayMainMenu();
                 break;
             default:
-                PrintNotValidMenuChoose();
+                printNotValidMenuChoose();
                 displayMainMenu();
         }
     }
 
     public void displayPlayMenu() {
-        PrintDisplayPlayMenu();
+        printDisplayPlayMenu();
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
                 gamePlay.startGamePlay();
                 break;
             case 2:
-                gamePlay.startGamePlayDatabase(gamePlay.Username());
+                gamePlay.startGamePlayDatabase(gamePlay.getUsername());
                 break;
             case 3:
                 displayMainMenu();
                 break;
             default:
-                PrintNotValidMenuChoose();
+                printNotValidMenuChoose();
                 displayPlayMenu();
         }
     }
 
-
-
-public void PrintNotValidMenuChoose(){
-    System.out.println("ÉRVÉNYTELEN VÁLASZTÁS !!");
+    public void printNotValidMenuChoose() {
+        System.out.println("ÉRVÉNYTELEN VÁLASZTÁS !!");
     }
 
-    public void PrintDisplayPlayMenu() {
+    public void printDisplayPlayMenu() {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         System.out.println("*-*                                     *-*");
         System.out.println("*-*     |Válasz a lehetőségek közül|    *-*");
@@ -77,7 +69,7 @@ public void PrintNotValidMenuChoose(){
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
     }
 
-    public void PrintMainPlayMenu(){
+    public void printMainPlayMenu() {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         System.out.println("*-*                                     *-*");
         System.out.println("*-*   |ÜDVÖZÖLLEK A WUMPUS JÁTÉKBAN|    *-*");
@@ -90,6 +82,5 @@ public void PrintNotValidMenuChoose(){
         System.out.println("*-*                                     *-*");
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
     }
-
 
 }

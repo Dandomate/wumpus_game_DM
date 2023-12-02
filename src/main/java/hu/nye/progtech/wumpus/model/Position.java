@@ -12,7 +12,6 @@ public class Position {
     public Position() {
     }
 
-
     public char getColumn() {
         return column;
     }
@@ -49,10 +48,10 @@ public class Position {
         return row;
     }
 
-    //proba
     public Position copy() {
         return new Position(row, column);
     }
+
     public void moveInDirection(Direction direction) {
         switch (direction) {
             case NORTH:
@@ -67,7 +66,8 @@ public class Position {
             case EAST:
                 column++;
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid direction: " + direction);
         }
     }
-
 }

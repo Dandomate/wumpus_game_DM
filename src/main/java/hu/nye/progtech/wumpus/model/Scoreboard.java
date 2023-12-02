@@ -1,17 +1,11 @@
 package hu.nye.progtech.wumpus.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import hu.nye.progtech.wumpus.service.ScoreManager;
 import hu.nye.progtech.wumpus.service.User;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 public class Scoreboard {
 
     private Map<String, Integer> scores;

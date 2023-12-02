@@ -1,11 +1,10 @@
 package hu.nye.progtech.wumpus.service;
 
-import hu.nye.progtech.wumpus.controller.HeroController;
-import hu.nye.progtech.wumpus.model.Scoreboard;
-
 import java.util.Map;
 import java.util.Scanner;
 
+import hu.nye.progtech.wumpus.controller.HeroController;
+import hu.nye.progtech.wumpus.model.Scoreboard;
 
 public class GamePlay {
     private User user;
@@ -19,53 +18,54 @@ public class GamePlay {
         this.user = user;
         this.databaseManager = databaseManager;
         this.menu = menu;
-        this.heroController = new HeroController(user,menu);
+        this.heroController = new HeroController(user, menu);
         this.boardManager = new BoardManager();
     }
 
-    public void startGame(){
+    public void startGame() {
         // A felhasználónevet bekérő metódus hívása.
-       username = user.askForUsername();
+        username = user.askForUsername();
         // A bekért felhasználónév kiíratása.
         System.out.println("Bekért felhasználónév: " + username);
             startMenu();
     }
 
-
     public void startMenu() {
         menu.displayMainMenu();
     }
+
     public void startGamePlay() {
-        HeroController heroController = new HeroController(user,menu); //ez ha nem jó ki kell szedni !!!
+        HeroController heroController = new HeroController(user, menu); //ez ha nem jó ki kell szedni !!!
         BoardManager boardManager = new BoardManager();
         String filePath = "C:\\Users\\User\\Desktop\\wumpus_game_DM\\src\\main\\resources\\asd.txt";
         boardManager.loadBoard(filePath);
 
-        heroController.setInitialPosition(boardManager.getHeroInitialPosition(),boardManager.getHeroInitialDirection());
+        heroController.setInitialPosition(boardManager.getHeroInitialPosition(), boardManager.getHeroInitialDirection());
         heroController.setBoard(boardManager.getGameBoard());
+
         // Tábla kiíratása
         boardManager.printBoard();
 
         Scanner scanner = new Scanner(System.in);
 
-        // Game Loop
+        // Game
         gameLoop(user.getUsername(), heroController, boardManager, scanner);
 
         // Scanner bezárása
         scanner.close();
     }
+
     public void startGamePlayDatabase(String username) {
-        HeroController heroController = new HeroController(user,menu);
+        HeroController heroController = new HeroController(user, menu);
         BoardManager boardManager = new BoardManager();
         boardManager.loadBoardDatabase(username);
-        heroController.setInitialPosition(boardManager.getHeroInitialPosition(),boardManager.getHeroInitialDirection());
+        heroController.setInitialPosition(boardManager.getHeroInitialPosition(), boardManager.getHeroInitialDirection());
         heroController.setBoard(boardManager.getGameBoard());
         boardManager.printBoard();
         Scanner scanner = new Scanner(System.in);
         gameLoop(username, heroController, boardManager, scanner);
         scanner.close();
     }
-
 
     public void gameLoop(String username, HeroController heroController, BoardManager boardManager, Scanner scanner) {
         while (true) {
@@ -77,7 +77,6 @@ public class GamePlay {
             System.out.println("A hős léptetése előre/hátra/jobbra/balra (U/H/J/K):");
             System.out.println("Nyíl kilövése (G):");
             String input = scanner.next().toUpperCase();
-
 
             if (input.equals("Q")) {
                 // Adatbázisba mentés
@@ -95,12 +94,8 @@ public class GamePlay {
 
             // Új metódus hívása a játékobjektumok elhelyezésére
             boardManager.printBoard();
-
-
         }
     }
-
-
 
     public  void showMainMenu() { //pálya megjelenítése
         menu.displayMainMenu();
@@ -110,7 +105,7 @@ public class GamePlay {
         Scoreboard scoreboard = new Scoreboard(user);
 
         while (true) {
-            Map<String, Integer> pontok = scoreboard.loadScoresFromFile(filePath);
+            final Map<String, Integer> pontok = scoreboard.loadScoresFromFile(filePath);
 
             System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
             System.out.println("*-*                                     *-*");
@@ -140,9 +135,10 @@ public class GamePlay {
     public void displayJsonScoresStart() {
         String filePath = "C:\\Users\\User\\Desktop\\wumpus_game_DM\\src\\main\\resources\\asd.json";
         Scanner scanners = new Scanner(System.in);
-        displayJsonScores(filePath,scanners);
+        displayJsonScores(filePath, scanners);
     }
-        public  String Username() {
+
+    public  String getUsername() {
         return username;
     }
 

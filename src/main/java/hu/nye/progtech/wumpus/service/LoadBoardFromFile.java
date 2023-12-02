@@ -11,7 +11,6 @@ import hu.nye.progtech.wumpus.model.Hero;
 
 public class LoadBoardFromFile {
 
-
     public static Board loadBoard(String filename) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String[] sizeAndHeroLine = reader.readLine().split(" ");
@@ -19,36 +18,34 @@ public class LoadBoardFromFile {
             validateLineLength(sizeAndHeroLine, 4);
 
             int size = Integer.parseInt(sizeAndHeroLine[0]); //parsolunk int-e
-            int heroRow = Integer.parseInt(sizeAndHeroLine[2])-1 ; // -1 kivonása a megfelelő oszlopszámhoz
+            int heroRow = Integer.parseInt(sizeAndHeroLine[2]) - 1; // -1 kivonása a megfelelő oszlopszámhoz
             char heroColumn = sizeAndHeroLine[1].charAt(0);
             char heroDirectionSymbol = sizeAndHeroLine[3].charAt(0);
-            Direction heroDirection = Direction.fromSymbol(heroDirectionSymbol);
+
+            final Direction heroDirection = Direction.fromSymbol(heroDirectionSymbol);
 
             validateSize(size);
 
-
-
             char[][] board = loadBoardData(reader, size);
-            int heroArrows = countHeroArrows(board);
+            final int heroArrows = countHeroArrows(board);
             placeHero(board, heroRow, heroColumn);
 
             int wumpusCount = countWumpus(board);
             int goldCount = countGold(board);
             int heroCount = countHero(board);
 
-            validateWumpusCount(size,wumpusCount); //validáljuk a wumpus számát
+            validateWumpusCount(size, wumpusCount); //validáljuk a wumpus számát
             validateGoldCount(goldCount); //validáljuk az arany számát
             validateHeroCount(heroCount); //validáljuk a hős számát
 
             Hero hero = new Hero(heroRow, heroColumn, heroDirection, heroArrows);
-            Board gameBoard = new Board(size, board,hero);
+            Board gameBoard = new Board(size, board, hero);
 
       
             return gameBoard;
 
         }
     }
-
 
     private static char[][] loadBoardData(BufferedReader reader, int size) throws IOException {
         char[][] board = new char[size][size];
@@ -68,8 +65,6 @@ public class LoadBoardFromFile {
         }
         return board;
     }
-
-
 
     private static int countHeroArrows(char[][] board) {
         int count = 0; //számláló bevezetésével meghatározom a hős nyiainak számát
@@ -155,6 +150,7 @@ public class LoadBoardFromFile {
             throw new IllegalArgumentException("Hibás méretinformáció a fájlban.");
         }
     }
+
     private static void validateWumpusCount(int boardSize, int wumpusCount) {  //Wumpus számának validálása
         if (boardSize <= 8) {
             if (wumpusCount > 1) {
@@ -182,7 +178,5 @@ public class LoadBoardFromFile {
             throw new IllegalArgumentException("A pálya több, mint 1 hőst tartalmaz a beolvasott fájlban.");
         }
     }
-
-
 
 }

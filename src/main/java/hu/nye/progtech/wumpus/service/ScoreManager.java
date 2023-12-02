@@ -1,18 +1,18 @@
 package hu.nye.progtech.wumpus.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ScoreManager {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ScoreManager.class);
+    private final Logger logger = LoggerFactory.getLogger(ScoreManager.class);
 
     public void incrementScore(User user, Map<String, Integer> scores) {
         scores.put(user.getUsername(), user.getScore());
@@ -23,7 +23,7 @@ public class ScoreManager {
     }
 
     public void saveScoresToFile(String filePath, Map<String, Integer> scores) {
-        LOGGER.info("save scores, filePath: {}", filePath);
+        logger.info("save scores, filePath: {}", filePath);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -42,7 +42,7 @@ public class ScoreManager {
             // Elmentjük az eredményeket a JSON-be
             objectMapper.writeValue(new File(filePath), existingScores);
         } catch (IOException e) {
-            LOGGER.error("Nem sikerült betölteni, kivétel: ", e); // kivétel dobás
+            logger.error("Nem sikerült betölteni, kivétel: ", e); // kivétel dobás
         }
     }
 

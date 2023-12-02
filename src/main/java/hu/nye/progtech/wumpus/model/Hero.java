@@ -5,14 +5,13 @@ public class Hero {
     private Position position;
     private Direction direction; // Nézési irány
     private int arrows;     // Nyílak száma
-
     private boolean gold;
 
     public Hero(int row, char column, Direction direction, int arrows) {
         this.position = new Position(row, column);
         this.direction = direction;
         this.arrows = arrows;
-        gold=false;
+        gold = false;
     }
 
     public Hero(int row, char column, Direction direction, int arrows, boolean gold) {
@@ -25,7 +24,6 @@ public class Hero {
     public String getGameState() {
         return "Position: " + position + ", Direction: " + direction + ", Arrows: " + arrows + ", Gold: " + gold;
     }
-
 
     public int getHeroArrows() {
         return arrows;
@@ -58,6 +56,7 @@ public class Hero {
     public void setGold() {
         this.gold = true;
     }
+
     public boolean hasArrows() {
         return arrows > 0;
     }

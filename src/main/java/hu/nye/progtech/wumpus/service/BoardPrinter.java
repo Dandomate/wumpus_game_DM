@@ -5,6 +5,7 @@ import hu.nye.progtech.wumpus.model.Hero;
 import hu.nye.progtech.wumpus.model.Position;
 
 public class BoardPrinter {
+
     public void printLoadBoard(Board board) {
         int size = board.getSize();
         char[][] boardArray = board.getBoard();
@@ -29,6 +30,7 @@ public class BoardPrinter {
         }
         printHeroInfo(hero);
     }
+
     private  void printRowNumber(int row) {
         System.out.printf("%-2d", row);
     }
@@ -38,9 +40,9 @@ public class BoardPrinter {
         System.out.println("A hős nyilainak száma: " + hero.getHeroArrows());
         System.out.println("A hős iránya: " + hero.getHeroDirection());
         System.out.println("A hős pozíciója: " + formatHeroPosition(hero.getHeroPosition()));
-        if (hero.isGold()==true)
+        if (hero.isGold()) {
             System.out.println("Nálad van az arany");
-        else {
+        } else {
             System.out.println("Nincs nálad arany");
         }
         System.out.print("\n");
@@ -60,7 +62,4 @@ public class BoardPrinter {
         }
         System.out.println();
     }
-
-
-
 }

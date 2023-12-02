@@ -1,22 +1,16 @@
 package hu.nye.progtech.wumpus.service;
 
-import hu.nye.progtech.wumpus.model.Board;
-import hu.nye.progtech.wumpus.model.CellType;
-import hu.nye.progtech.wumpus.model.Direction;
-import hu.nye.progtech.wumpus.model.Hero;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import hu.nye.progtech.wumpus.model.Board;
+import hu.nye.progtech.wumpus.model.Direction;
+import hu.nye.progtech.wumpus.model.Hero;
 
 public class LoadBoardFromDatabase {
-
-
-
 
     public static Board loadBoardDatabase(String username) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wumpus_game?user=root&password=")) {
@@ -41,6 +35,7 @@ public class LoadBoardFromDatabase {
                         Direction heroDirection = Direction.fromSymbol(boardData[3].charAt(0));
                         int heroArrows = Integer.parseInt(boardData[4]);
                         String fifthElement = boardData.length > 5 ? boardData[5].trim() : "0";
+
                         char firstChar = '0';
 
                         if (!fifthElement.isEmpty()) {
@@ -48,10 +43,11 @@ public class LoadBoardFromDatabase {
                         }
 
                         boolean hasGold;
-                        if (firstChar=='1'){
-                            hasGold =true;
-                        }else {
-                            hasGold=false;
+
+                        if (firstChar == '1') {
+                            hasGold = true;
+                        } else {
+                            hasGold = false;
                         }
 
 
@@ -62,7 +58,7 @@ public class LoadBoardFromDatabase {
                         // További ellenőrzések és validációk...
 
                         // Hős létrehozása és visszaadása a táblával együtt
-                        Hero hero = new Hero(heroRow, heroColumn, heroDirection, heroArrows,hasGold);
+                        Hero hero = new Hero(heroRow, heroColumn, heroDirection, heroArrows, hasGold);
                         Board gameBoard = new Board(size, board, hero);
 
                         return gameBoard;
@@ -78,6 +74,7 @@ public class LoadBoardFromDatabase {
 
         return null;
     }
+
     private static char[][] loadBoardDataFromString(String boardData, int size) {
         char[][] board = new char[size][size];
 
@@ -98,5 +95,6 @@ public class LoadBoardFromDatabase {
             throw new IllegalArgumentException("Hibás méretinformáció a fájlban.");
         }
     }
+
 }
 
